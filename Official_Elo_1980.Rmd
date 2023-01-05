@@ -1,0 +1,173 @@
+---
+title: "NBA_EloRating_Project"
+author: "Xavier Epps"
+date: "10/13/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Subset Data into 1979-80 season and on
+nba_elo_1980 <- subset.data.frame(nba_elo_cleaned_GitHub, subset =  nba_elo_cleaned_GitHub$...5>= 1980)
+
+# Change Column names to correct variable names
+colnames(nba_elo_1980) = c("game_order", "game_id", "lg_id", "x_iscopy", "year_id", "date_game", "season_game", "is_playoffs", "team_id", "fran_id", "pts", "elo_i", "elo_n", "win_equiv", "opp_id", "opp_fran", "opp_pts", "opp_elo_i", "opp_elo_n", "game_location", "game_result", "forecast")
+
+# Permanent Clean
+View(nba_elo_1980)
+Off_Elo_1980 <- nba_elo_1980
+View(Off_Elo_1980)
+
+
+# First Steps
+library(ggplot2)
+
+#plot(Elo_DAL ~ Elo_)
+
+Elo_DAL <- subset.data.frame(Off_Elo_1980, subset = Off_Elo_1980$team_id == "DAL")
+Elo_HOU <- subset.data.frame(Off_Elo_1980, subset = Off_Elo_1980$team_id == "HOU")
+Elo_DAL_1981 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1981")
+Elo_DAL_1982 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1982")
+Elo_DAL_1983 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1983")
+Elo_DAL_1984 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1984")
+Elo_DAL_1985 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1985")
+Elo_DAL_1986 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1986")
+Elo_DAL_1987 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1987")
+Elo_DAL_1988 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1988")
+Elo_DAL_1989 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1989")
+Elo_DAL_1990 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1990")
+Elo_DAL_1991 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1991")
+Elo_DAL_1992 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1992")
+Elo_DAL_1993 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1993")
+Elo_DAL_1994 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1994")
+Elo_DAL_1995 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1995")
+Elo_DAL_1996 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1996")
+Elo_DAL_1997 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1997")
+Elo_DAL_1998 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1998")
+Elo_DAL_1999 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "1999")
+Elo_DAL_2000 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2000")
+Elo_DAL_2001 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2001")
+Elo_DAL_2002 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2002")
+Elo_DAL_2003 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2003")
+Elo_DAL_2004 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2004")
+Elo_DAL_2005 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2005")
+Elo_DAL_2006 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2006")
+Elo_DAL_2007 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2007")
+Elo_DAL_2008 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2008")
+Elo_DAL_2009 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2009")
+Elo_DAL_2010 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2010")
+Elo_DAL_2011 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2011")
+Elo_DAL_2012 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2012")
+Elo_DAL_2013 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2013")
+Elo_DAL_2014 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2014")
+Elo_DAL_2015 <- subset.data.frame(Elo_DAL, subset = Elo_DAL$year_id == "2015")
+
+# Entirety of DAL History
+ggplot(data = Off_Elo_1980) + geom_point(mapping = aes(x = game_order, y = elo_n, color = game_result))
+
+# Intital DAL Season
+ggplot(data = Elo_DAL_1981) + geom_point(mapping = aes(x = game_order, y = elo_n, color = game_result))
+
+# Championship Season
+ggplot(data = Elo_DAL_2011) + geom_point(mapping = aes(x = game_order, y = elo_n, color = game_result))
+
+#Scatterplot of playoff games comparing elo_i to elo_n
+plot(elo_n ~ opp_elo_n, data = Elo_DAL_2011)
+
+
+
+View(Elo_DAL_1981)
+
+# Average during Championship 2011 Season compared to inaugural season
+Elo_DAL_avg_1981 <- mean(Elo_DAL_1981$elo_n)
+Elo_DAL_avg_1982 <- mean(Elo_DAL_1982$elo_n)
+Elo_DAL_avg_1983 <- mean(Elo_DAL_1983$elo_n)
+Elo_DAL_avg_1984 <- mean(Elo_DAL_1984$elo_n)
+Elo_DAL_avg_1985 <- mean(Elo_DAL_1985$elo_n)
+Elo_DAL_avg_1986 <- mean(Elo_DAL_1986$elo_n)
+Elo_DAL_avg_1987 <- mean(Elo_DAL_1987$elo_n)
+Elo_DAL_avg_1988 <- mean(Elo_DAL_1988$elo_n)
+Elo_DAL_avg_1989 <- mean(Elo_DAL_1989$elo_n)
+Elo_DAL_avg_1990 <- mean(Elo_DAL_1990$elo_n)
+Elo_DAL_avg_1991 <- mean(Elo_DAL_1991$elo_n)
+Elo_DAL_avg_1992 <- mean(Elo_DAL_1992$elo_n)
+Elo_DAL_avg_1993 <- mean(Elo_DAL_1993$elo_n)
+Elo_DAL_avg_1994 <- mean(Elo_DAL_1994$elo_n)
+Elo_DAL_avg_1995 <- mean(Elo_DAL_1995$elo_n)
+Elo_DAL_avg_1996 <- mean(Elo_DAL_1996$elo_n)
+Elo_DAL_avg_1997 <- mean(Elo_DAL_1997$elo_n)
+Elo_DAL_avg_1998 <- mean(Elo_DAL_1998$elo_n)
+Elo_DAL_avg_1999 <- mean(Elo_DAL_1999$elo_n)
+Elo_DAL_avg_2000 <- mean(Elo_DAL_2000$elo_n)
+Elo_DAL_avg_2001 <- mean(Elo_DAL_2001$elo_n)
+Elo_DAL_avg_2002 <- mean(Elo_DAL_2002$elo_n)
+Elo_DAL_avg_2003 <- mean(Elo_DAL_2003$elo_n)
+Elo_DAL_avg_2004 <- mean(Elo_DAL_2004$elo_n)
+Elo_DAL_avg_2005 <- mean(Elo_DAL_2005$elo_n)
+Elo_DAL_avg_2006 <- mean(Elo_DAL_2006$elo_n)
+Elo_DAL_avg_2007 <- mean(Elo_DAL_2007$elo_n)
+Elo_DAL_avg_2008 <- mean(Elo_DAL_2008$elo_n)
+Elo_DAL_avg_2009 <- mean(Elo_DAL_2009$elo_n)
+Elo_DAL_avg_2010 <- mean(Elo_DAL_2010$elo_n)
+Elo_DAL_avg_2011 <- mean(Elo_DAL_2011$elo_n)
+Elo_DAL_avg_2012 <- mean(Elo_DAL_2012$elo_n)
+Elo_DAL_avg_2013 <- mean(Elo_DAL_2013$elo_n)
+Elo_DAL_avg_2014 <- mean(Elo_DAL_2014$elo_n)
+Elo_DAL_avg_2015 <- mean(Elo_DAL_2015$elo_n)
+
+Elo_DAL_avg_1981
+Elo_DAL_avg_1982
+Elo_DAL_avg_1983
+Elo_DAL_avg_1984
+Elo_DAL_avg_1985
+Elo_DAL_avg_1986
+Elo_DAL_avg_1987
+Elo_DAL_avg_1988
+Elo_DAL_avg_1989
+Elo_DAL_avg_1990
+
+Elo_DAL_avg_2011 <- mean(Elo_DAL_2011$elo_n)
+
+
+Elo_DAL_avg_total <- c(Elo_DAL_avg_1981, Elo_DAL_avg_1982, Elo_DAL_avg_1983, Elo_DAL_avg_1984, Elo_DAL_avg_1985, Elo_DAL_avg_1986, Elo_DAL_avg_1987, Elo_DAL_avg_1988, Elo_DAL_avg_1989, Elo_DAL_avg_1990, Elo_DAL_avg_1991, Elo_DAL_avg_1992, Elo_DAL_avg_1993, Elo_DAL_avg_1994, Elo_DAL_avg_1995, Elo_DAL_avg_1996, Elo_DAL_avg_1997, Elo_DAL_avg_1998, Elo_DAL_avg_1999, Elo_DAL_avg_2000, Elo_DAL_avg_2001,Elo_DAL_avg_2002, Elo_DAL_avg_2003, Elo_DAL_avg_2004, Elo_DAL_avg_2005, Elo_DAL_avg_2006, Elo_DAL_avg_2007, Elo_DAL_avg_2008, Elo_DAL_avg_2009, Elo_DAL_avg_2010, Elo_DAL_avg_2011, Elo_DAL_avg_2012, Elo_DAL_avg_2013, Elo_DAL_avg_2014, Elo_DAL_avg_2015)
+
+DAL_year <- c(1981:2015)
+
+facet_wrap(~ year_id)
+Elo_avg_yr_Combined <- merge(DAL_year, Elo_DAL_avg_total, by.x = DAL_year == "1980", all = FALSE)
+View(Elo_avg_yr_Combined)
+install.packages("tidyverse")
+
+#Plot avg elo vlaue throughout every year of DAL history in our dataset
+
+x <- DAL_year 
+y <- Elo_DAL_avg_total
+plot(y ~ x, xlab = "Year", ylab = "Avg_Elo", ylim = 1000, 1800)
+
+ggplot2(x = DAL_year, y = Elo_DAL_avg_total) + geom_point(mapping = aes(x = DAL_year, y = Elo_DAL_avg_total)) + labs(x = "Year", y = "Avg_Elo", title = "Avg Elo by Year")
+
+# Avg DAL Elo 
+ggplot(data = Elo_DAL) + geom_point(mapping = aes(x = game_order, y = elo_n), size = 0.1, group = 1) + geom_line(mapping = aes(x = game_order, y = elo_n, group = 1)) + labs(x = "Game Order", y = "Post-Game Elo", title = "Mavs Elo History")
+
+# Trendlin of Avg Elo
+x <- Elo_DAL$game_order
+y <- Elo_DAL$elo_n
+m <- lm(y ~ x)                           
+abline(h = mean (y), col = "red", lty = 2)
+abline(m, col = "blue")
+
+
+y <- cor(Elo_DAL$elo_i, Elo_DAL$forecast)
+
+
+ggplot(data = Elo_DAL) + geom_point(mapping = aes(x = game, y = elo_n)) + + labs(x = "Game Order", y = "Post-Game Elo", title = "Mavs Elo History")
+3
+
+
+#abline (average_DAL)
+#abline (average_elo)
+
+
+
+```
